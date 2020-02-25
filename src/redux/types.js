@@ -1,0 +1,10 @@
+export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
+export const LOADING_USER = 'LOADING_USER';
+export const SET_USER = 'SET_USER';
+export const NOT_LOADING_USER = 'NOT_LOADING_USER';
+export const SET_LIST = 'SET_LIST';
+export const SET_LOADED = 'SET_LOADED';
+export const RESET_LOADED = 'RESET_LOADED'
+export const CLEAR_USER = 'CLEAR_USER'
+export const CLEAR_LIST = 'CLEAR_LIST'
+export const PROFILE_UPDATED = 'CLEAR_LIST'
