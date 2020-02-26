@@ -3,6 +3,7 @@ import {createStore , combineReducers, applyMiddleware, compose} from 'redux'
 import userActions from './actions/userActions' 
 import userReducers from './reducers/userReducers'
 import listReducers from './reducers/listReducers'
+import uiReducers from './reducers/uiReducers'
 import thunk from 'redux-thunk'
 
 let initialState = {};
@@ -14,6 +15,7 @@ const middleware = [thunk]
 const reducers = combineReducers({
     user: userReducers,
     list: listReducers,
+    ui:uiReducers,
 })
 
 const store = createStore(

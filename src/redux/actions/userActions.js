@@ -1,8 +1,9 @@
-import {AUTHENTICATE_USER , LOADING_USER , NOT_LOADING_USER , SET_USER, SET_LOADED , RESET_LOADED} from '../types';
+import {AUTHENTICATE_USER , LOADING_USER , NOT_LOADING_USER , SET_USER, SET_LOADED , RESET_LOADED ,SET_ERRORS , CLEAR_ERRORS} from '../types';
 import axios from 'axios'
 
 export const signupUser = ( data , history ) => (dispatch) =>{
     dispatch( {type: LOADING_USER});
+    dispatch({type:CLEAR_ERRORS})
     axios.post('http://localhost:2000/signup', data )
         .then( res => {
             console.log( res.data );
@@ -12,23 +13,27 @@ export const signupUser = ( data , history ) => (dispatch) =>{
                 localStorage.setItem( 'FBIdToken', token ) ;
                 axios.defaults.headers.common['Authorization'] = token ;
                 dispatch( getUserDetails() );
-
+                
             }else if( res.data.error){
                 return console.log(res.data.error);
             }
+            dispatch({ type: NOT_LOADING_USER} )
         })
         .catch( err =>  {
+            dispatch({ type: NOT_LOADING_USER} )
             try{
-                console.log( err.response.data.error );
+                console.log( 'err', err.response.data );
+                dispatch({type:SET_ERRORS, payload:{errors:err.response.data} })
             }
             catch(err){
                 console.log(err);
             }
         })
-    dispatch({ type: NOT_LOADING_USER} )
+    
 }
 
 export const loginUser = (data , history) => (dispatch) =>{
+    dispatch({type:CLEAR_ERRORS})
     dispatch( {type: LOADING_USER});
     axios.post('http://localhost:2000/login', data )
         .then( res => {
@@ -37,16 +42,20 @@ export const loginUser = (data , history) => (dispatch) =>{
                 history.push('/');
                 let token = `Bearer ${res.data.token}`
                 localStorage.setItem( 'FBIdToken', token );
-                axios.defaults.headers.common['Authorization'] = token ; 
+                axios.defaults.headers.common['Authorization'] = token; 
                 dispatch( getUserDetails());
 
-            }else if( res.data.error){
+            } else if( res.data.error ){
                 return console.log(res.data.error);
             }
         })
-        .catch( err =>  {
+        .catch( err => {
             try{
-                console.log( err.response.data.error );
+                console.log(err.response.data);
+                  
+                dispatch( {type:SET_ERRORS , payload:{errors:err.response.data}})
+                
+                
             }
             catch(err){
                 console.log(err);
@@ -62,7 +71,7 @@ export const getUserDetails = (data) => (dispatch) => {
         .then( res =>{
             if( res.data !== {} ){
                 let data = {credentials:res.data}
-                dispatch( {type:SET_USER, payload: data })
+                dispatch( {type:SET_USER, payload:res.data })
             }
             else{
                 return console.log( res.data)
@@ -92,8 +101,8 @@ export const updateProfile = ( data ) => ( dispatch) => {
 
     axios.post('http://localhost:2000/updateuser', data)
     .then( res=>{
-        let payload =  data;
-        dispatch({type:SET_USER, payload  })
+        
+        dispatch({type:SET_USER, payload:data  })
         return res.data ;
     }).catch( err =>{
         try{

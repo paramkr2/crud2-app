@@ -15,30 +15,41 @@ import store from './redux/store'
 import { SET_USER, AUTHENTICATE_USER } from './redux/types';
 import {getUserDetails} from './redux/actions/userActions'
 import axios from 'axios';
-let tk = localStorage.getItem('FBIdToken');
 
-if( tk !== null ){
-  let token = jwtDecode(tk.split(' ')[1]);
-  console.log(token);
-  const {username,iat} = token;
-
-  if(  (new Date()).getTime() - iat*1000 < 10000000 ){
-    store.dispatch({type:AUTHENTICATE_USER});
-    axios.defaults.headers.common['Authorization'] = tk ; 
-    store.dispatch( getUserDetails() );
-  }
-}
 
 
 
 class App extends Component{
+
+  constructor(props){
+    super(props);
+    this.isLoggedIn();
+  }
+  
+  isLoggedIn(){
+    let tk = localStorage.getItem('FBIdToken');
+    if( tk !== null ){
+      let token = jwtDecode(tk.split(' ')[1]);
+      console.log(token);
+      const {username,iat} = token;
+
+      if(  (new Date()).getTime() - iat*1000 < 10000000 ){
+        store.dispatch({type:AUTHENTICATE_USER});
+        axios.defaults.headers.common['Authorization'] = tk ; 
+        store.dispatch( getUserDetails() );
+      }
+    }
+  }
+  
   render(){
     return (
       <Provider store={store}>
-        <div className="App">
+        <div >
           <Router>
             <Navbar/>
+            <br/>
             <hr/>
+            <br/>
             <Switch>
               <AuthRoute1 path='/signup' component={SignUp}/>
               <AuthRoute1 path='/login' component={Login} />

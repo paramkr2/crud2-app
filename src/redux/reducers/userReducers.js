@@ -28,7 +28,7 @@ function reducerFunction( state=initialState, action){
                 ...state,
                 loading:false,
                 authenticated:true,
-                ...action.payload
+                credentials: { ...state.credentials , ...action.payload} ,
             }
         case CLEAR_USER:
             return{

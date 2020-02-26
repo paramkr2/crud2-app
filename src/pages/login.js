@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {loginUser} from '../redux/actions/userActions'
 import {withRouter} from 'react-router-dom'
+import './pages.css'
 
 class Login extends React.Component {
     constructor(props){
@@ -10,6 +11,7 @@ class Login extends React.Component {
             password:'',
             username:''
         }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -27,18 +29,27 @@ class Login extends React.Component {
     }
 
     render(){
-        const {loading} = this.props;
+        const {loading } = this.props.user ;
+        const {errors} = this.props.ui;
+        console.log('loading',loading);
         return(
 
-            <div> 
-                <form onSubmit={this.handleSubmit}>
-                    username: <input type="text" name='username' onChange={this.handleChange} value={this.state.username} placeholder='username'/>
-                    <br/>
-                    PassWord: <input type="text" name='password' onChange={this.handleChange} value={this.state.password} placeholder="password" />
-                    <br/>
-                      <button type="submit" value="submit" >Submit</button> 
-                      {!loading || <h1> Loading....</h1>}
-                </form>
+            <div className = 'flexContainer' > 
+                <div className='col-3' > </div>
+                <div className='col-6' >
+                    <form onSubmit={this.handleSubmit}>
+                        Username:<input style={ errors.username||errors.error?{borderColor:'red'}:{}} type="text" name='username' onChange={this.handleChange} value={this.state.username} placeholder='username'/>
+                        {errors.username && <label> {errors.username} </label>}
+                        <br/>
+                        Password:<input type="text" style={ errors.password||errors.error?{borderColor:'red'}:{}} name='password' onChange={this.handleChange} value={this.state.password} placeholder="password" />
+                        {errors.password && <label> {errors.password}</label>}
+                        <br/>
+                        <button type="submit" value="submit" style={loading?{color:'green'}:{}} >Button</button> 
+                        {errors.error && <label> {errors.error}</label>}
+                        
+                    </form> 
+                </div>
+                <div className='col-3' > </div>
 
             </div>
         )
@@ -46,7 +57,8 @@ class Login extends React.Component {
 }
 
 let mapStateToProps = (state) =>({
-    user:state.user
+    user:state.user,
+    ui:state.ui,
 })
 
 const mapActionToProps = {

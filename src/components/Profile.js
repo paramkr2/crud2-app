@@ -47,7 +47,7 @@ class Profile extends Component {
 
     setEdit(){
         
-        const {credentials:{_id,email,username,firstName,lastName,age,bio  }} = this.props.user;
+        const {credentials:{ _id, email,username,firstName,lastName,age,bio  }} = this.props.user;
         this.setState({edit:true , email:email, username:username, firstName,lastName,age,bio})
     }
 
