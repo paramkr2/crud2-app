@@ -1,10 +1,12 @@
-import {AUTHENTICATE_USER , LOADING_USER , NOT_LOADING_USER , SET_USER, SET_LOADED , RESET_LOADED ,SET_ERRORS , CLEAR_ERRORS} from '../types';
+import {AUTHENTICATE_USER , LOADING_USER , NOT_LOADING_USER , 
+    SET_USER, SET_LOADED , RESET_LOADED ,SET_ERRORS , 
+    CLEAR_ERRORS  } from '../types';
 import axios from 'axios'
 
 export const signupUser = ( data , history ) => (dispatch) =>{
     dispatch( {type: LOADING_USER});
     dispatch({type:CLEAR_ERRORS})
-    axios.post('http://localhost:2000/signup', data )
+    axios.post('/signup', data )
         .then( res => {
             console.log( res.data );
             if(res.data.token){
@@ -35,7 +37,7 @@ export const signupUser = ( data , history ) => (dispatch) =>{
 export const loginUser = (data , history) => (dispatch) =>{
     dispatch({type:CLEAR_ERRORS})
     dispatch( {type: LOADING_USER});
-    axios.post('http://localhost:2000/login', data )
+    axios.post('/login', data )
         .then( res => {
             console.log( res.data );
             if( res.data.token ){
@@ -67,7 +69,7 @@ export const loginUser = (data , history) => (dispatch) =>{
 
 export const getUserDetails = (data) => (dispatch) => {
     console.log('in get user ')
-    axios.get('http://localhost:2000/user')
+    axios.get('/user')
         .then( res =>{
             if( res.data !== {} ){
                 let data = {credentials:res.data}
@@ -86,7 +88,7 @@ export const sendDocument = ( data  )  => {
         // this will make sure that the list will reload again ..
         dispatch( {type:RESET_LOADED})
         console.log(data);   
-        axios.post('http://localhost:2000/create',data)
+        axios.post('/create',data)
         .then( res =>{       
             console.log('success', res.data );
         })
@@ -99,7 +101,7 @@ export const sendDocument = ( data  )  => {
 
 export const updateProfile = ( data ) => ( dispatch) => {
 
-    axios.post('http://localhost:2000/updateuser', data)
+    axios.post('/updateuser', data)
     .then( res=>{
         
         dispatch({type:SET_USER, payload:data  })

@@ -33,6 +33,7 @@ div ul li a:hover{
 }
 
 
+
 @media (width <= 600px ){
     
 }
@@ -68,4 +69,21 @@ div.listContainer ul li div.item {
     margin-top:15px;
     margin-bottom:0;
     padding:10px;
+}
+
+
+div .listItem{
+    font-size: 10px;
+    color: black;
+    border-style: solid;
+    border-radius: 10%;
+    border-color:grey;
+    margin: 0 20px 0 10px;
+    padding:10px;
+}
+div .listItemButtons{
+    display:flex;
+    flex-wrap: wrap ;
+    align-items: right;
+    margin-left:100px;
 }

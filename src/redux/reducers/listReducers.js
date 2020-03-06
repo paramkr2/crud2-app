@@ -1,4 +1,4 @@
-import {SET_LIST , SET_LOADED , RESET_LOADED , CLEAR_LIST, CLEAR_USER} from '../types'
+import {SET_LIST , SET_LOADED , RESET_LOADED , CLEAR_LIST, CLEAR_USER , UPDATE_LIST} from '../types'
 
 let initialState = {
     list:[],
@@ -25,6 +25,11 @@ function reducerFunction( state=initialState , action ){
         case CLEAR_LIST:
             return{
                 ...initialState,
+            }
+        case UPDATE_LIST:
+            return{
+                ...state,
+                ...action.payload,
             }
         default:
             return{

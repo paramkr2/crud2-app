@@ -1,5 +1,8 @@
 import React , {Component} from 'react'
 
+// compoenents 
+import Document from './Document'
+
 //redux stuff
 import {connect} from 'react-redux'
 import {listDocument} from '../redux/actions/listActions'
@@ -24,9 +27,10 @@ class ListDocument extends Component {
         console.log( 'createing list');
         let items = this.props.list.list.documents;
         let list =  items.map( function(item){
-            return <li>  <div className='title'>{item.title}</div> <br/> <div className='item'>{item.content}</div>   </li> 
+            return <Document item = {item} /> 
+            //return <li>  <div className='title'>{item.title}</div> <br/> <div className='item'>{item.content}</div>   </li> 
         })
-        return (<ul>{list}</ul>);
+        return (list);
     }
     render(){
         
