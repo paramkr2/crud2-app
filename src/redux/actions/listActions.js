@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const listDocument = (data) => ( dispatch ) =>{
     
-    axios.post('/list', {username:data} )
+    axios.post('https://limitless-coast-84633.herokuapp.com/list', {username:data} )
     .then( res =>{
         let payload = {list:res.data};
         dispatch({type:SET_LIST, payload:payload })
@@ -15,7 +15,7 @@ export const listDocument = (data) => ( dispatch ) =>{
 
 export const editDocument = (data ) => ( dispatch ) =>{
 
-    axios.post( '/editDocument', data )
+    axios.post( 'https://limitless-coast-84633.herokuapp.com/editDocument', data )
     .then( res => {
         console.log( res.data );
         return 'inserted'
@@ -25,7 +25,7 @@ export const editDocument = (data ) => ( dispatch ) =>{
 }
 
 export const deleteDocument = (data) =>(dispatch) => {
-    axios.post( '/removeDocument', data )
+    axios.post( 'https://limitless-coast-84633.herokuapp.com/removeDocument', data )
     .then(res =>{
         console.log( res.data )
         return 'deleted'
