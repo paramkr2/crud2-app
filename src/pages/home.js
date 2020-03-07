@@ -10,12 +10,16 @@ class Home extends React.Component {
         super(props);
         this.state = { create:true } ;
 
-        this.switchView = this.switchView.bind(this);
+        this.listDocument = this.listDocument.bind(this);
+        this.createDocument = this.createDocument.bind(this);
     }
 
-    switchView(){
-        let boo = this.state.create?false:true ;
-        this.setState({ create:  boo })
+    listDocument(){
+        
+        this.setState({ create:  false })
+    }
+    createDocument(){
+        this.setState({create:true})
     }
     
     render(){
@@ -25,9 +29,11 @@ class Home extends React.Component {
                 
                 <div className='flexContainer'> 
                     <div className = 'col-6'>
-                        <a className='switchClass' href='#' onClick={this.switchView}> Switch </a> <br/>
-                        <br/>{ !this.state.create || <div > <ListDocument/> </div> }
-                        { this.state.create || <div > <CreateDocument/> </div> }
+                        <button className='navigationButtons' onClick={this.createDocument} style={this.state.create?{backgroundColor:'white',color:'black'}:{}}>Create Document</button> 
+                        <button className='navigationButtons' onClick={this.listDocument}  style={!this.state.create?{backgroundColor:'white',color:'black'}:{}}>List Document</button>
+                        
+                        <br/>{ !this.state.create && <div > <ListDocument/> </div> }
+                        { this.state.create && <div > <CreateDocument/> </div> }
                     </div>
                     <div className='col-6'> <Profile/> </div>
                 </div>

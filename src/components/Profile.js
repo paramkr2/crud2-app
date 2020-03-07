@@ -24,6 +24,7 @@ class Profile extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.setEdit = this.setEdit.bind(this);
+        this.handleCancel= this.handleCancel.bind(this);
     }
 
     handleSubmit(event){
@@ -51,35 +52,39 @@ class Profile extends Component {
         this.setState({edit:true , email:email, username:username, firstName,lastName,age,bio})
     }
 
+    handleCancel(){
+        this.setState({edit:false});
+    }
+
     render(){
         let {credentials:{_id,email,username , firstName, lastName, age, bio }} = this.props.user;
         let edit = this.state.edit;
 
         return(
-            <div style={ st.val }> 
-                Profile Section
+            <div className='profileContainer'> 
+                <h3>User Profile</h3>
 
                 { edit || 
-                    <ul>
-                        <li>id:         {_id}</li>
-                        <li>email:      {email}  </li>
-                        <li>username:   { username}</li>
-                        <li>firstName:   { firstName}</li>
-                        <li>lastName:   { lastName}</li>
-                        <li>age:   { age}</li>
-                        <li>bio:   { bio}</li>
+                    <ul className="profileList">
+                        <li> <b>Id: </b>        {_id}</li>
+                        <li> <b>Email: </b>         {email}  </li>
+                        <li> <b>Username: </b>   { username}</li>
+                        <li><b>FirstName:</b>    { firstName}</li>
+                        <li><b>LastName:</b>    { lastName}</li>
+                        <li><b>Age:</b>    { age}</li>
+                        <li><b>Bio:</b>    { bio}</li>
                         <li> <a href='#' onClick={this.setEdit} >Edit Profile </a> </li>
                     </ul>
                 } 
                 { !edit || 
                     <form onSubmit={this.handleSubmit}>
                         Email: <input type="text" name='email' onChange={this.handleChange} value={this.state.email} placeholder="Email" />
-                        <br/>firstName: <input type="text" name='firstName' onChange={this.handleChange} value={this.state.firstName} placeholder='firstName'/>
-                        <br/>lastName: <input type="text" name='lastName' onChange={this.handleChange} value={this.state.lastName} placeholder='lastName'/>
-                        <br/>age: <input type="text" name='age' onChange={this.handleChange} value={this.state.age} placeholder='age'/>
-                        <br/>bio: <input type="text" name='bio' onChange={this.handleChange} value={this.state.bio} placeholder='bio'/>
+                        <br/>FirstName: <input type="text" name='firstName' onChange={this.handleChange} value={this.state.firstName} placeholder='firstName'/>
+                        <br/>LastName: <input type="text" name='lastName' onChange={this.handleChange} value={this.state.lastName} placeholder='lastName'/>
+                        <br/>Age: <input type="text" name='age' onChange={this.handleChange} value={this.state.age} placeholder='age'/>
+                        <br/>Bio: <input type="text" name='bio' onChange={this.handleChange} value={this.state.bio} placeholder='bio'/>
                         <br/><button type="submit" value="submit" >Submit</button>
-                        
+                        <button type="cancel" onClick={this.handleCancel} >Cancel</button>
                     </form>
                 }
 

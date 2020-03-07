@@ -25,30 +25,28 @@ class Document extends Component {
         this.setState( {edit : true , title:title, content:content });
     }
 
-    handleDelete = (event) =>{
-        event.preventDefault();
-        console.log( 'buttotn pressed ');
-    }
 
     handleChange(event){
         event.preventDefault();
         this.setState({[event.target.name] : event.target.value});
     }
+
     handleSubmit = (event) =>{
         event.preventDefault();
         this.setState( {edit:false} ); 
         this.props.item.title = this.state.title;
         this.props.item.content = this.state.content;
-
-        let res = this.props.editDocument( { ...this.props.item , username:this.props.user.username });
-        console.log(res);
+        
+        let res = this.props.editDocument( { ...this.props.item , username:  this.props.user.credentials.username}  );
+        //console.log(res);
     }
     handleDelete = (event) =>{
-        this.props.deleteDocument( this.props.item );
+        
+        this.props.deleteDocument( {...this.props.item , username: this.props.user.credentials.username } );
     }
 
     render(){
-        console.log(this.props)
+        //console.log(this.props)
         let edit = this.state.edit;
         const { title , content , _id } = this.props.item;
         return(
@@ -69,7 +67,7 @@ class Document extends Component {
                     <div className="listItem" >
                         < form onSubmit={this.handleSubmit} >
                             <input type="text" value={this.state.title} name='title' onChange = {this.handleChange} />
-                            <input type="text" value={this.state.content} name='content' onChange = {this.handleChange} />
+                            <textarea row='50' col='40' type="text" value={this.state.content} name='content' onChange = {this.handleChange} />
                             <button> Submit </button>
                         </form>
                     

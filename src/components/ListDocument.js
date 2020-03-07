@@ -26,8 +26,8 @@ class ListDocument extends Component {
     makeList(){
         console.log( 'createing list');
         let items = this.props.list.list.documents;
-        let list =  items.map( function(item){
-            return <Document item = {item} /> 
+        let list =  items.map( function(item ,i ){
+            return <Document item = {item} key={i} /> 
             //return <li>  <div className='title'>{item.title}</div> <br/> <div className='item'>{item.content}</div>   </li> 
         })
         return (list);

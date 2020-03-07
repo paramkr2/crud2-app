@@ -1,9 +1,11 @@
 import {SET_LIST, SET_LOADED , RESET_LOADED ,  UPDATE_LIST} from '../types'
 import axios from 'axios'
 
+let base_url = 'http://localhost:2000' // 'https://limitless-coast-84633.herokuapp.com';
+
 export const listDocument = (data) => ( dispatch ) =>{
     
-    axios.post('https://limitless-coast-84633.herokuapp.com/list', {username:data} )
+    axios.post(base_url + '/list', {username:data} )
     .then( res =>{
         let payload = {list:res.data};
         dispatch({type:SET_LIST, payload:payload })
@@ -15,7 +17,7 @@ export const listDocument = (data) => ( dispatch ) =>{
 
 export const editDocument = (data ) => ( dispatch ) =>{
 
-    axios.post( 'https://limitless-coast-84633.herokuapp.com/editDocument', data )
+    axios.post( base_url + '/editDocument', data )
     .then( res => {
         console.log( res.data );
         return 'inserted'
@@ -25,7 +27,7 @@ export const editDocument = (data ) => ( dispatch ) =>{
 }
 
 export const deleteDocument = (data) =>(dispatch) => {
-    axios.post( 'https://limitless-coast-84633.herokuapp.com/removeDocument', data )
+    axios.post( base_url + '/removeDocument', data )
     .then(res =>{
         console.log( res.data )
         return 'deleted'

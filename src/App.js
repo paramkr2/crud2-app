@@ -12,7 +12,7 @@ import jwtDecode from 'jwt-decode'
 //redux stuff 
 import {Provider} from 'react-redux'
 import store from './redux/store'
-import { SET_USER, AUTHENTICATE_USER } from './redux/types';
+import { SET_USER, AUTHENTICATE_USER , LOADING_USER } from './redux/types';
 import {getUserDetails} from './redux/actions/userActions'
 import axios from 'axios';
 
@@ -20,7 +20,6 @@ import axios from 'axios';
 
 
 class App extends Component{
-
   constructor(props){
     super(props);
     this.isLoggedIn();
@@ -36,6 +35,7 @@ class App extends Component{
       if(  (new Date()).getTime() - iat*1000 < 10000000 ){
         store.dispatch({type:AUTHENTICATE_USER});
         axios.defaults.headers.common['Authorization'] = tk ; 
+        store.dispatch({type:LOADING_USER})
         store.dispatch( getUserDetails() );
       }
     }
@@ -47,9 +47,7 @@ class App extends Component{
         <div >
           <Router>
             <Navbar/>
-            <br/>
-            <hr/>
-            <br/>
+            
             <Switch>
               <AuthRoute1 path='/signup' component={SignUp}/>
               <AuthRoute1 path='/login' component={Login} />

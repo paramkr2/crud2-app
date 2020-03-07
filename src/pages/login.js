@@ -44,7 +44,7 @@ class Login extends React.Component {
                         Password:<input type="text" style={ errors.password||errors.error?{borderColor:'red'}:{}} name='password' onChange={this.handleChange} value={this.state.password} placeholder="password" />
                         {errors.password && <label> {errors.password}</label>}
                         <br/>
-                        <button type="submit" value="submit" style={loading?{color:'green'}:{}} >Button</button> 
+                        <button type="submit" value="submit"  >{ loading?"Loading":"Button"}</button> 
                         {errors.error && <label> {errors.error}</label>}
                         
                     </form> 

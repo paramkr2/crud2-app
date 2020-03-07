@@ -32,11 +32,11 @@ class CreateDocument extends Component{
     render(){
         
         return(
-            <div>
-                Create Document <br/>
+            <div className="createDocument">
+                 <br/>
                 <form onSubmit={this.handleSubmit}>
                     <input type='text' name='title' value={this.state.title} onChange={this.handleChange} placeholder='Title' />
-                    <br/><input type='text' name='content' value={this.state.content} onChange={this.handleChange} placeholder='Write A Note '/>
+                    <br/><textarea row='50' col='40' type='text' name='content' value={this.state.content} onChange={this.handleChange} placeholder='Write A Note '/>
                     <br/> < button type='submit' value='submit'> Create </button>
                 </form>
 

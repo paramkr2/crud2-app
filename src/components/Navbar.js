@@ -22,7 +22,8 @@ class Navbar extends React.Component {
             <div > 
                 <ul className='topnav' >
                     <li > <Link to='/'> Home  </Link></li>
-                    <li  > <Link to='/login' > Login </Link></li>
+                    
+                    {!authenticated && <li  > <Link to='/login' > Login </Link></li>}
                     {!authenticated && <li  > <Link to='/signup' > SignUp </Link></li>}
                     {authenticated && <li > <a href='#' onClick={this.logOutUser}>Logout </a> <br/> </li> }
                 </ul>
