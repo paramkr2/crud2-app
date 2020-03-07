@@ -46,7 +46,7 @@ div form textarea {
     margin: 20px 0px 10px 0px;
     font-size: 20px;
     width:90%;
-    
+    white-space:pre;
     min-width: 100px;
     padding:5px;
     border-radius:5px;

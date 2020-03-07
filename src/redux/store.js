@@ -23,8 +23,9 @@ const store = createStore(
     initialState,
     compose(
         applyMiddleware(...middleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 )
+// the above commented line is needed if you have developer tools installed , it is usefull for that stuff
 
 export default store;
