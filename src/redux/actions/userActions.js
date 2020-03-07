@@ -3,8 +3,8 @@ import {AUTHENTICATE_USER , LOADING_USER , NOT_LOADING_USER ,
     CLEAR_ERRORS  } from '../types';
 import axios from 'axios'
 
-let base_url = 'http://localhost:2000' // 'https://limitless-coast-84633.herokuapp.com'
-
+let base_url =  'https://limitless-coast-84633.herokuapp.com'
+//'http://localhost:2000' //
 export const signupUser = ( data , history ) => (dispatch) =>{
     dispatch( {type: LOADING_USER});
     dispatch({type:CLEAR_ERRORS});
