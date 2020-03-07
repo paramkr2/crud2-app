@@ -1,8 +1,8 @@
 import {SET_LIST, SET_LOADED , RESET_LOADED ,  UPDATE_LIST} from '../types'
 import axios from 'axios'
 
-let base_url = 'http://localhost:2000' // 'https://limitless-coast-84633.herokuapp.com';
-
+let base_url = 'https://limitless-coast-84633.herokuapp.com';
+// 'http://localhost:2000' // 
 export const listDocument = (data) => ( dispatch ) =>{
     
     axios.post(base_url + '/list', {username:data} )
