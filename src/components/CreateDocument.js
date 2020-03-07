@@ -1,8 +1,9 @@
 import  React, {Component} from 'react';
-
+import loadingGif from './loading.gif'
 // redux stuff 
 import {connect} from 'react-redux'
 import {sendDocument} from '../redux/actions/userActions'
+import reducerFunction from '../redux/reducers/listReducers';
 
 class CreateDocument extends Component{
     constructor( props ){
@@ -14,6 +15,7 @@ class CreateDocument extends Component{
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.resetForm = this.resetForm.bind(this);
     }
 
     handleSubmit(event){
@@ -27,18 +29,27 @@ class CreateDocument extends Component{
         this.setState({[event.target.name] : event.target.value});
 
     }
+    resetForm(){
+        this.setState({
+            title:'',
+            content:''
+        })
+    }
 
 
     render(){
-        
+        const {creating , message:{create}} = this.props.list;
         return(
             <div className="createDocument">
                  <br/>
-                <form onSubmit={this.handleSubmit}>
-                    <input type='text' name='title' value={this.state.title} onChange={this.handleChange} placeholder='Title' />
-                    <br/><textarea row='50' col='40' type='text' name='content' value={this.state.content} onChange={this.handleChange} placeholder='Write A Note '/>
-                    <br/> < button type='submit' value='submit'> Create </button>
+                {creating && <img src={loadingGif} /> }
+                {!creating && <form onSubmit={this.handleSubmit}>
+                    <input type='text' name='title' value={this.state.title} required onChange={this.handleChange} placeholder='Title' />
+                    <br/><textarea row='50' col='40' type='text' name='content' required value={this.state.content} onChange={this.handleChange} placeholder='Write A Note '/>
+                    <br/> < button type='submit' value='submit'> Create </button> 
+                    { create && <div style={{color:'red',fontSize:'15px'}}> {create}  </div>  }
                 </form>
+                }   
 
             </div>
         )
@@ -47,7 +58,8 @@ class CreateDocument extends Component{
 }
 
 function mapStateToProps(state){
-    return { user:state.user}
+    return { user:state.user
+            , list:state.list }
 }
 
 const mapActionToProps = {

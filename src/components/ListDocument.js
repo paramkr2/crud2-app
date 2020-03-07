@@ -1,5 +1,5 @@
 import React , {Component} from 'react'
-
+import loadingGif from './loading.gif'
 // compoenents 
 import Document from './Document'
 
@@ -39,6 +39,7 @@ class ListDocument extends Component {
         console.log( loaded);
         return(
             <div className='listContainer'>
+                {!loaded && <div> <img src={loadingGif} /> </div>}
                 {!loaded && authenticated && this.getList()}
                 { !loaded || this.makeList() }
             </div>
